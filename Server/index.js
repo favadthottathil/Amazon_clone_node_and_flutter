@@ -14,6 +14,7 @@ const DB = 'mongodb+srv://favad:favad123@cluster0.ciuwwr9.mongodb.net/?retryWrit
 // middleware
 app.use(express.json());
 app.use(authRouter);
+app.use(express.urlencoded({ extended: false }));
 
 // Connections
 mongoose.connect(DB).then(function () {
@@ -29,7 +30,7 @@ app.get("/hello-world", function (req, res) {
 
 });
 
-app.listen(PORT, "0.0.0.0", function () {
+app.listen(PORT, "192.168.29.218",  function () {
 
     console.log(`connected at port ${PORT} favad`);
 
