@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const authRouter = require("./routes/auth");
 
 // INIT
-const PORT = 3000;
+const PORT =  3000;
 const app = express();
 const DB = 'mongodb+srv://favad:favad123@cluster0.ciuwwr9.mongodb.net/?retryWrites=true&w=majority';
 

@@ -1,9 +1,8 @@
 import 'dart:convert';
-
+import 'package:amazon_clone_with_nodejs/Common/Widgets/bottom_bar.dart';
 import 'package:amazon_clone_with_nodejs/Constants/error_handling.dart';
 import 'package:amazon_clone_with_nodejs/Constants/global_variables.dart';
 import 'package:amazon_clone_with_nodejs/Constants/utilities.dart';
-import 'package:amazon_clone_with_nodejs/Features/Home/Screens/home_screen.dart';
 import 'package:amazon_clone_with_nodejs/Features/Models/user_model.dart';
 import 'package:amazon_clone_with_nodejs/Features/Providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +85,7 @@ class AuthService {
           await prefs.setString('x-auth-token', jsonDecode(response.body)['token']);
           Navigator.pushNamedAndRemoveUntil(
             context,
-            HomeScreen.routName,
+            BottomBar.routeName,
             (route) => false,
           );
         },
@@ -97,7 +96,7 @@ class AuthService {
   }
 
   // GET USER DATA
-  // SIGN IN
+
   getUserData({
     required BuildContext context,
   }) async {
@@ -118,31 +117,24 @@ class AuthService {
         },
       );
 
-      final bool response = jsonDecode(tokenResponse.body);
+      
+
+      final response = jsonDecode(tokenResponse.body);
 
       if (response) {
+        final userResponse = await http.get(
+          Uri.parse('$apiEndpoint/'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token,
+          },
+        );
 
-        
-        
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userResponse.body);
       }
-
-      // print(response.body);
-
-      // httpErrorHandle(
-      //   response: response,
-      //   context: context,
-      //   onSuccess: () async {
-      //     SharedPreferences prefs = await SharedPreferences.getInstance();
-      //     Provider.of<UserProvider>(context, listen: false).setUser(response.body);
-      //     await prefs.setString('x-auth-token', jsonDecode(response.body)['token']);
-      //     Navigator.pushNamedAndRemoveUntil(
-      //       context,
-      //       HomeScreen.routName,
-      //       (route) => false,
-      //     );
-      //   },
-      // );
     } catch (e) {
+      print(e.toString());
       showSnackbar(context, e.toString());
     }
   }

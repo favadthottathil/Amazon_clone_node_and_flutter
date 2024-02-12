@@ -3,6 +3,7 @@ const User = require("../Models/user");
 const bcryptjs = require('bcryptjs');
 const authRouter = express.Router();
 const jwt = require('jsonwebtoken');
+const auth = require("../Middlewares/auth");
 
 // SIGN
 authRouter.post("/api/signup", async function (req, res) {
@@ -73,5 +74,11 @@ authRouter.post("/tokenIsValid", async function (req, res) {
 
     }
 })
+
+// get user data
+authRouter.get('/', auth, async function(req,res){
+    const user = await User.findById(req.user);
+    res.json({...user._doc, token: req.token});
+});
 
 module.exports = authRouter;
