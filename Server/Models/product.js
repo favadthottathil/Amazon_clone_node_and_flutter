@@ -11,7 +11,7 @@ const productSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
-    iamges: [
+    images: [
         {
             type: String,
             required: true,

@@ -1,10 +1,11 @@
 // IMPORT FROM PACKAGES
 const express = require("express");
-
 const mongoose = require('mongoose');
 
 // IMPORT FROM OTHER FILES
 const authRouter = require("./routes/auth");
+const adminRouter = require("./routes/admin");
+const productRouter = require("./routes/products");
 
 // INIT
 const PORT =  3000;
@@ -14,7 +15,9 @@ const DB = 'mongodb+srv://favad:favad123@cluster0.ciuwwr9.mongodb.net/?retryWrit
 // middleware
 app.use(express.json());
 app.use(authRouter);
-app.use(express.urlencoded({ extended: false }));
+app.use(adminRouter);
+app.use(productRouter);
+
 
 // Connections
 mongoose.connect(DB).then(function () {

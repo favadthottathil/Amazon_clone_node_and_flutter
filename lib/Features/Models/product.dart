@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'dart:convert';
 
 class Product {
@@ -6,13 +6,13 @@ class Product {
 
   final String description;
 
-  final double quantity;
+  final int quantity;
 
   final List<String> images;
 
   final String category;
 
-  final double price;
+  final int price;
 
   final String? id;
 
@@ -46,12 +46,12 @@ class Product {
     return Product(
       name: map['name'] as String,
       description: map['description'] as String,
-      quantity: map['quantity'] as double,
-      images: List<String>.from((map['images'] as List<String>)),
+      quantity: map['quantity'],
+      images: (map['images'] as List<dynamic>).cast<String>(),
       category: map['category'] as String,
-      price: map['price'] as double,
-      id: map['_id'] != null ? map['id'] as String : null,
-      userId: map['userId'] != null ? map['userId'] as String : null,
+      price: map['price'],
+      id: map['_id'],
+      userId: map['userId'],
     );
   }
 

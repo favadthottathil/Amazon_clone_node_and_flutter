@@ -4,6 +4,7 @@ import 'package:amazon_clone_with_nodejs/Common/Widgets/custom_button.dart';
 import 'package:amazon_clone_with_nodejs/Common/Widgets/custom_textfield.dart';
 import 'package:amazon_clone_with_nodejs/Constants/global_variables.dart';
 import 'package:amazon_clone_with_nodejs/Constants/utilities.dart';
+import 'package:amazon_clone_with_nodejs/Features/Admin/Services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   final quantityController = TextEditingController();
 
+  final AdminServices adminServices = AdminServices();
+
   List<File> images = [];
+
+  final _addProductFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -44,6 +49,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Books',
     'Fashion',
   ];
+
+  sellProducts() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.sellProduct(
+        context: context,
+        name: productController.text,
+        description: descriptionController.text,
+        price: int.parse(priceController.text),
+        quantity: int.parse(quantityController.text),
+        category: dropdownValue,
+        images: images,
+      );
+    }
+  }
 
   selectImages() async {
     var res = await pickImages();
@@ -78,6 +97,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _addProductFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
@@ -180,7 +200,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Sell',
-                  onpressed: () {},
+                  onpressed: sellProducts,
                 ),
               ],
             ),
