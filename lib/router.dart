@@ -3,6 +3,9 @@ import 'package:amazon_clone_with_nodejs/Features/Admin/Screens/add_product_scre
 import 'package:amazon_clone_with_nodejs/Features/Auth/Screens/auth_screen.dart';
 import 'package:amazon_clone_with_nodejs/Features/Home/Screens/category_deals_screen.dart';
 import 'package:amazon_clone_with_nodejs/Features/Home/Screens/home_screen.dart';
+import 'package:amazon_clone_with_nodejs/Features/Models/product.dart';
+import 'package:amazon_clone_with_nodejs/Features/Product_details/Screens/product_detail_screen.dart';
+import 'package:amazon_clone_with_nodejs/Features/Search/Screens/search_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -27,6 +30,16 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       final category = routeSettings.arguments as String;
       return MaterialPageRoute(
         builder: (context) => CategoryDealScreen(category: category),
+      );
+    case SearchScreen.routeName:
+      final searcyQuery = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        builder: (context) => SearchScreen(searchQuery: searcyQuery),
+      );
+    case ProductDetailsScreen.routeName:
+      final product = routeSettings.arguments as Product;
+      return MaterialPageRoute(
+        builder: (context) => ProductDetailsScreen(product: product),
       );
     default:
       return MaterialPageRoute(

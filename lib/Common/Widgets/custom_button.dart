@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onpressed;
-  const CustomButton({super.key, required this.text, required this.onpressed});
+  final Color? color;
+  const CustomButton({
+    super.key,
+    required this.text,
+    required this.onpressed,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,15 +18,15 @@ class CustomButton extends StatelessWidget {
       onPressed: onpressed,
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(double.infinity, 50),
-        backgroundColor: GlobalVariables.secondaryColor,
+        backgroundColor: color ?? GlobalVariables.secondaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
         ),
       ),
       child: Text(
         text,
-        style: const TextStyle(
-          color: GlobalVariables.backgroundColor,
+        style: TextStyle(
+          color: color == null ? GlobalVariables.backgroundColor : Colors.black,
         ),
       ),
     );
