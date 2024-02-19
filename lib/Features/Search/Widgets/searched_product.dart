@@ -8,6 +8,15 @@ class SearchedProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double totalRating = 0;
+    for (var i = 0; i < product.ratings!.length; i++) {
+      totalRating += product.ratings![i].rating;
+    }
+    double avgRating = 0;
+    if (totalRating != 0) {
+      avgRating = totalRating / product.ratings!.length;
+    }
+
     return Column(
       children: [
         Container(
@@ -36,7 +45,7 @@ class SearchedProduct extends StatelessWidget {
                   Container(
                     width: 235,
                     padding: const EdgeInsets.only(left: 10, top: 5),
-                    child: const Stars(rating: 3),
+                    child: Stars(rating: avgRating),
                   ),
                   Container(
                     width: 235,

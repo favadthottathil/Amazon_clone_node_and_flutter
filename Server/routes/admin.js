@@ -1,6 +1,6 @@
 const express = require('express');
 const admin = require('../Middlewares/admin');
-const Product = require('../Models/product');
+const { Product } = require('../Models/product');
 
 const adminRouter = express.Router();
 

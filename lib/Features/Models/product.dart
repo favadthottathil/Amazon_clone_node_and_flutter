@@ -1,5 +1,5 @@
-
 import 'dart:convert';
+import 'package:amazon_clone_with_nodejs/Features/Models/rating.dart';
 
 class Product {
   final String name;
@@ -18,6 +18,8 @@ class Product {
 
   final String? userId;
 
+  final List<Rating>? ratings;
+
   Product({
     required this.name,
     required this.description,
@@ -27,6 +29,7 @@ class Product {
     required this.price,
     this.id,
     this.userId,
+    this.ratings,
   });
 
   Map<String, dynamic> toMap() {
@@ -39,6 +42,7 @@ class Product {
       'price': price,
       '_id': id,
       'userId': userId,
+      'ratings': ratings,
     };
   }
 
@@ -52,6 +56,13 @@ class Product {
       price: map['price'],
       id: map['_id'],
       userId: map['userId'],
+      ratings: map['ratings'] != null
+          ? List<Rating>.from(
+              map['ratings']?.map(
+                (x) => Rating.fromMap(x),
+              ),
+            )
+          : null,
     );
   }
 
