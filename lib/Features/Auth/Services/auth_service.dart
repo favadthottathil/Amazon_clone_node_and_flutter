@@ -27,6 +27,7 @@ class AuthService {
         address: '',
         type: '',
         token: '',
+        cart: [],
       );
 
       final response = await http.post(
@@ -64,6 +65,7 @@ class AuthService {
         address: '',
         type: '',
         token: '',
+        cart: [],
       );
 
       final response = await http.post(
@@ -116,8 +118,6 @@ class AuthService {
           'x-auth-token': token!,
         },
       );
-
-      
 
       final response = jsonDecode(tokenResponse.body);
 

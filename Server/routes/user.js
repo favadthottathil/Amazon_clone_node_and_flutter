@@ -4,11 +4,12 @@ const { Product } = require("../Models/product");
 const User = require("../Models/user");
 const userRouter = express.Router();
 
+// ADD TO CART
 userRouter.post("/api/add-to-cart", auth, async function (req, res) {
     try {
         const { id } = req.body;
         const product = await Product.findById(id);
-        const user = await User.findById(req.user);
+        let user = await User.findById(req.user);
         if (user.cart.length == 0) {
             user.cart.push({ product, quantity: 1 });
         } else {
@@ -30,10 +31,37 @@ userRouter.post("/api/add-to-cart", auth, async function (req, res) {
         user = await user.save();
         res.json(user);
     } catch (e) {
-        res.status(500).json({ error: e.messagae });
+        res.status(500).json({ error: e.message });
 
     }
 });
+
+// REMOVE FROM CART
+
+userRouter.delete("/api/remove-from-cart/:id", auth, async function (req, res) {
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
+        let user = await User.findById(req.user);
+
+        for (let i = 0; i < user.cart.length; i++) {
+            if (user.cart[i].product._id.equals(product.id)) {
+                if (user.cart[i].quantity == 1) {
+                    user.cart.splice(i, 1);
+                } else {
+                    user.cart[i].quantity -= 1;
+                }
+            }
+        }
+        user = await user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+
+    }
+});
+
+
 
 module.exports = userRouter;
 
