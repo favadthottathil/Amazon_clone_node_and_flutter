@@ -1,5 +1,6 @@
 import 'package:amazon_clone_with_nodejs/Common/Widgets/custom_button.dart';
 import 'package:amazon_clone_with_nodejs/Constants/global_variables.dart';
+import 'package:amazon_clone_with_nodejs/Features/Adress/Screens/address_screen.dart';
 import 'package:amazon_clone_with_nodejs/Features/Cart/Widgets/cart_product.dart';
 import 'package:amazon_clone_with_nodejs/Features/Cart/Widgets/cart_subtotal.dart';
 import 'package:amazon_clone_with_nodejs/Features/Home/Widgets/address_box.dart';
@@ -24,9 +25,24 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  navigateAddressScreen(int sum) {
+    Navigator.pushNamed(
+      context,
+      AddresScreen.routeName,
+      arguments: sum.toString(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = context.watch<UserProvider>().user;
+    int sum = 0;
+
+    user.cart
+        .map(
+          (item) => sum += item['quantity'] * item['product']['price'] as int,
+        )
+        .toList();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
@@ -37,7 +53,6 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
           title: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Container(
@@ -99,7 +114,7 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
                 text: 'Proceed to Buy ${user.cart.length} item',
-                onpressed: () {},
+                onpressed: () =>  navigateAddressScreen(sum),
                 color: Colors.yellow[600],
               ),
             ),
