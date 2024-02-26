@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const apiEndpoint = 'http://192.168.43.218:3000';
+const apiEndpoint = 'http://192.168.29.218:3000';
 
 class GlobalVariables {
   // COLORS

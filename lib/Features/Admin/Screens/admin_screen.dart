@@ -1,4 +1,6 @@
 import 'package:amazon_clone_with_nodejs/Constants/global_variables.dart';
+import 'package:amazon_clone_with_nodejs/Features/Admin/Screens/analytics_screen.dart';
+import 'package:amazon_clone_with_nodejs/Features/Admin/Screens/orders_screen.dart';
 import 'package:amazon_clone_with_nodejs/Features/Admin/Screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +12,10 @@ class AdminScreen extends StatefulWidget {
 }
 
 class _AdminScreenState extends State<AdminScreen> {
-  List<Widget> pages = [
-    const PostScreen(),
-    const Center(child: Text('Analytics Page')),
-    const Center(child: Text('Cart Page'))
+  List<Widget> pages = const [
+    PostScreen(),
+    AnalyticsScreen(),
+    OrdersScreen()
   ];
 
   int page = 0;
