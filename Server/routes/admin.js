@@ -107,16 +107,16 @@ adminRouter.get('/admin/analytics', admin, async function (req, res) {
 });
 
 async function fetchCategoryWiseProduct(category) {
-   let earings = 0;
-   let categoryOrder = Order.find({
+   let earnings = 0;
+   let categoryOrder = await Order.find({
       'products.product.category': category,
    });
    for (let i = 0; i < categoryOrder.length; i++) {
       for (let j = 0; j < categoryOrder[i].products.length; j++) {
-         earings += categoryOrder[i].products[j].quantity * categoryOrder[i].products[j].product.price;
+         earnings += categoryOrder[i].products[j].quantity * categoryOrder[i].products[j].product.price;
       }
    }
-   return earings;
+   return earnings;
 }
 
 module.exports = adminRouter;

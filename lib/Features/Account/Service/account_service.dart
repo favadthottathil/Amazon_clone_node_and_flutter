@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:amazon_clone_with_nodejs/Constants/error_handling.dart';
 import 'package:amazon_clone_with_nodejs/Constants/global_variables.dart';
 import 'package:amazon_clone_with_nodejs/Constants/utilities.dart';
+import 'package:amazon_clone_with_nodejs/Features/Auth/Screens/auth_screen.dart';
 import 'package:amazon_clone_with_nodejs/Features/Models/orders.dart';
 import 'package:amazon_clone_with_nodejs/Features/Providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountService {
   // FETCH ALL ORDERS
@@ -50,5 +52,19 @@ class AccountService {
     }
 
     return orderedList;
+  }
+
+  logOutUser(BuildContext context) async {
+    try {
+      SharedPreferences _sharedPref = await SharedPreferences.getInstance();
+      await _sharedPref.setString('x-auth-token', '');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AuthScreen.routeName,
+        (route) => false,
+      );
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
   }
 }

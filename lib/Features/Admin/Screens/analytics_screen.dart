@@ -1,6 +1,7 @@
 import 'package:amazon_clone_with_nodejs/Common/Widgets/loader.dart';
 import 'package:amazon_clone_with_nodejs/Features/Admin/Model/sales.dart';
 import 'package:amazon_clone_with_nodejs/Features/Admin/Services/admin_services.dart';
+import 'package:amazon_clone_with_nodejs/Features/Admin/Widgets/category_product_chart.dart';
 import 'package:flutter/material.dart';
 
 class AnalyticsScreen extends StatefulWidget {
@@ -45,7 +46,12 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 40),
+                  SizedBox(
+                    height: 300,
+                    child: CategoryProductChart(sales: earings!),
+                  ),
                 ],
               ),
       ),

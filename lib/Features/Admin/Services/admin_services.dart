@@ -224,9 +224,9 @@ class AdminServices {
   Future<Map<String, dynamic>> fetchAllAnalytics(BuildContext context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
-    List<Sales> sales = [];
+    List<Sales>? sales;
 
-    int totalEarinings = 0;
+    int? totalEarinings;
 
     try {
       var res = await http.get(
@@ -244,6 +244,8 @@ class AdminServices {
           var items = jsonDecode(res.body);
 
           totalEarinings = items['toatalEarings'];
+
+          print(items['mobileEarnings']);
 
           sales = [
             Sales('Mobiles', items['mobileEarnings']),
