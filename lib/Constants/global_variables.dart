@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const apiEndpoint = 'http://192.168.43.218:3000';
+const apiEndpoint = 'https://amazon-clone-node-and-flutter.onrender.com';
 
 class GlobalVariables {
   // COLORS

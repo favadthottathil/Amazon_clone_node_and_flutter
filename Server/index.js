@@ -9,7 +9,7 @@ const productRouter = require("./routes/products");
 const userRouter = require("./routes/user");
 
 // INIT
-const PORT =  3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const DB = 'mongodb+srv://favad:favad123@cluster0.ciuwwr9.mongodb.net/?retryWrites=true&w=majority';
 
@@ -34,7 +34,7 @@ app.get("/hello-world", function (req, res) {
 
 });
 
-app.listen(PORT, "0.0.0.0",  function () {
+app.listen(PORT, "0.0.0.0", function () {
 
     console.log(`connected at port ${PORT} favad`);
 
